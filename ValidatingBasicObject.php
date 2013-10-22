@@ -129,7 +129,7 @@ class ValidatingBasicObject extends BasicObject {
 	 * Validates that $var is set
 	 */
 	protected function validate_presence_of($var,$options=array()) {
-		if($this->$var == null || $this->$var == "") {
+		if($this->$var === null || $this->$var === "") {
 			$message = "måste fyllas i";
 			$this->add_error($var,isset($options['message'])?$options['message']:$message);
 		}
