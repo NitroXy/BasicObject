@@ -1068,11 +1068,13 @@ abstract class BasicObject {
 	 * @param $options An array with options
 	 *						empty_to_null: Set to true to replace all instances of "" with null. (default true)
 	 *						commit: Set to false to not perform commit() (default false)
+	 *            permit: Array with keys to permit to update.
 	 */
 	public static function update_attributes($array, $options=array()) {
 		$defaults = array(
 			'empty_to_null' => true,
 			'commit' => false,
+			'permit' => false,
 		);
 		$options = array_merge($defaults, $options);
 		if(isset($options["empty_to_null"]) && $options["empty_to_null"] == true) {
@@ -1080,6 +1082,12 @@ abstract class BasicObject {
 				if($v == "")
 					$array[$k] = null;
 			}
+		}
+
+		/* remove unpermitted keys */
+		if ( is_array($options['permit']) ){
+			$permit = array_merge($options['permit'], array('id', static::id_name()));
+			$array = array_intersect_key($array, array_combine($permit, $permit));
 		}
 
 		$obj = new static($array);
