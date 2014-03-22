@@ -1271,6 +1271,13 @@ abstract class BasicObject {
 		}
 	}
 
+	/**
+	 * Shorthand for static::selection()
+	 */
+	public static function all(){
+		return static::selection();
+	}
+
 	private static function connection($table1, $table2) {
 		global $db;
 		if(strcmp($table1, $table2) < 0){
