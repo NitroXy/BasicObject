@@ -102,6 +102,16 @@ class ValidatingBasicObject extends BasicObject {
 	 */
 	protected function validation_hooks() {}
 
+	/**
+	 * Called before validations.
+	 */
+	protected function pre_validation_hook(){}
+
+	/**
+	 * Called after validations.
+	 */
+	protected function post_validation_hook(){}
+
 	public function add_error($var, $msg) {
 		//if(!isset($this->errors[$var]))
 			//$this->errors[$var] = array();
@@ -109,9 +119,13 @@ class ValidatingBasicObject extends BasicObject {
 	}
 
 	public function commit($validate=true) {
+		$this->pre_validation_hook();
+
 		if($validate && !$this->validate()) {
 			throw new ValidationException($this);
 		}
+
+		$this->post_validation_hook();
 
 		parent::commit();
 	}

@@ -443,12 +443,24 @@ abstract class BasicObject {
 	}
 
 	/**
+	 * Called before committing.
+	 */
+	protected function pre_commit_hook(){}
+
+	/**
+	 * Called after committing, if and only if committing actually inserted/updated the object.
+	 */
+	protected function post_commit_hook(){}
+
+	/**
 	 * Commits all fields to database. If this object was created with "new Object()" a new row
 	 * will be created in the table and this object will atempt to update itself with automagic values.
 	 * If the inhereting class wants to do special things on creation, it is best to overload this method
 	 * and do them again.
 	 */
 	public function commit() {
+		$this->pre_commit_hook();
+
 		global $db;
 		$id_name = $this->id_name();
 		if(isset($this->_exists) && $this->_exists){
@@ -523,6 +535,7 @@ abstract class BasicObject {
 		}
 
 		BasicObject::invalidate_cache();
+		$this->post_commit_hook();
 	}
 
 	/**
