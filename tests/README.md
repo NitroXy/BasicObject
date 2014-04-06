@@ -6,6 +6,11 @@ Install it by running
 
 	sudo ./install_phpunit.sh
 
+If you get errors saying that pcntl_signal and/or pcntl_alarm is disabled for security reasons,
+reenable them by editing /etc/php5/cli/php.ini and removing them from disabled_functions.
+
+php unit need these to run the tests in separate processes
+
 Tests
 =====
 
