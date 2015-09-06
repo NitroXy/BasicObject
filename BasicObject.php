@@ -81,6 +81,17 @@ abstract class BasicObject {
 	}
 
 	/**
+	 * Runs the callback with the query cache disabled.
+	 * The previously value of enable_cache is restored before the method returns.
+	 */
+	public static function with_disabled_cache($callback) {
+		$old_val = BasicObject::$_enable_cache;
+		static::disable_cache();
+		$callback();
+		BasicObject::$_enable_cache = $old_val;
+	}
+
+	/**
 	 * Returns the table name associated with this class.
 	 * @return The name of the table this class is associated with.
 	 */
