@@ -1143,7 +1143,7 @@ abstract class BasicObject {
 			$old_obj = static::from_id($id);
 			$obj->_data = array_merge($old_obj->_data,$obj->_data);
 			$obj->_exists = true; //Mark as existing
-		} else if ( $options['commit'] === false ){
+		} else if ( $options['create'] === false ){
 			return null;
 		}
 
