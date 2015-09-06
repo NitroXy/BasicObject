@@ -251,8 +251,15 @@ abstract class BasicObject {
 	 * Any changes made to the object is lost
 	 */
 	public function refresh() {
+		if(!$this->_exists) {
+			throw new Exception("Can't call refresh on a object that doesn't exist yet.");
+		}
+
 		static::with_disabled_cache(function() {
 			$new_object = static::from_id($this->id);
+			if($new_object == null) {
+				throw new Exception("Could not find object with id {$this->id} in ".get_class($this)."::refresh()");
+			}
 			$this->_data = $new_object->_data;
 		});
 	}
