@@ -1091,12 +1091,15 @@ abstract class BasicObject {
 	 *						empty_to_null: Set to true to replace all instances of "" with null. (default true)
 	 *						commit: Set to false to not perform commit() (default false)
 	 *            permit: Array with keys to permit to update.
+	 *            create: If true new objects can be created if ID is missing or null, otherwise null
+	 *                    will be returned when the object should've been created.
 	 */
 	public static function update_attributes($array, $options=array()) {
 		$defaults = array(
 			'empty_to_null' => true,
 			'commit' => false,
 			'permit' => false,
+			'create' => true,
 		);
 		$options = array_merge($defaults, $options);
 		if(isset($options["empty_to_null"]) && $options["empty_to_null"] == true) {
@@ -1133,6 +1136,8 @@ abstract class BasicObject {
 			$old_obj = static::from_id($id);
 			$obj->_data = array_merge($old_obj->_data,$obj->_data);
 			$obj->_exists = true; //Mark as existing
+		} else if ( $options['commit'] === false ){
+			return null;
 		}
 
 		if(!isset($options["commit"]) || $options["commit"] == true) {
