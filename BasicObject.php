@@ -247,6 +247,17 @@ abstract class BasicObject {
 	}
 
 	/**
+	 * Refetches this instance from the database.
+	 * Any changes made to the object is lost
+	 */
+	public function refresh() {
+		static::with_disabled_cache(function() {
+			$new_object = static::from_id($this->id);
+			$this->_data = $new_object->_data;
+		});
+	}
+
+	/**
 	 * Creates a duplicate with all the attributes from this instance, but with id set to null, and exist set to false
 	 */
 	public function duplicate() {
