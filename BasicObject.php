@@ -1095,7 +1095,10 @@ abstract class BasicObject {
 	 *						build to allow partial updates of a model and loads any missing data from the database.
 	 *
 	 * @param $options An array with options
-	 *						empty_to_null: Set to true to replace all instances of "" with null. (default true)
+	 *            empty_to_null: Boolean or array, if boolean true all instances
+	 *                           of "" will be replaced by null. If an array is
+	 *                           passed only the specified keys will be replaced.
+	 *                           (default true)
 	 *						commit: Set to false to not perform commit() (default false)
 	 *            permit: Array with keys to permit to update.
 	 *            create: If true new objects can be created if ID is missing or null, otherwise null
@@ -1109,10 +1112,15 @@ abstract class BasicObject {
 			'create' => true,
 		);
 		$options = array_merge($defaults, $options);
-		if(isset($options["empty_to_null"]) && $options["empty_to_null"] == true) {
-			foreach($array as $k => $v) {
-				if($v == "")
-					$array[$k] = null;
+		if ( $options['empty_to_null'] == true || is_array($options['empty_to_null']) ){
+			$keys = $options['empty_to_null'];
+			if ( !is_array($keys) ){
+				$keys = array_keys($array);
+			}
+			foreach ( $keys as $key ) {
+				if ( $array[$key] === "" ){
+					$array[$key] = null;
+				}
 			}
 		}
 
