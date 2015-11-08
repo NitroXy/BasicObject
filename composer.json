@@ -1,0 +1,24 @@
+{
+    "name": "nitroxy/basic-object",
+    "description": "Yet anoyther object relational mapper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eric Druid",
+            "email": "eric.druid+github@gmail.com"
+        },
+        {
+            "name": "Andreas Tarandi",
+            "email": "torandi@gmail.com"
+        },
+        {
+            "name": "David Sveningsson",
+            "email": "ext@sidvind.com"
+        },
+        {
+            "name": "Petter Blomberg",
+            "email": "github@petterblomberg.se"
+        }
+    ],
+    "require": {}
+}

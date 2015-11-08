@@ -1,2 +1,4 @@
 tests/settings.php
 *.swp
+
+/vendor/
