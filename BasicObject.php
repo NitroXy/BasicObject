@@ -188,6 +188,10 @@ abstract class BasicObject {
 		}
 	}
 
+	protected static function get_columns(){
+		return self::columns(static::table_name());
+	}
+
 	private static function store_connection_table() {
 		if(BasicObject::$memcache) {
 			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "connection_table", serialize(BasicObject::$connection_table), 0, 0); /* No expire */
