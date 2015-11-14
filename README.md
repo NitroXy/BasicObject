@@ -1,6 +1,11 @@
 BasicObject
 ==========
 
+Installation
+------------
+
+    $ composer require nitroxy/basic-object
+
 Tests
 ---------
 Run tests before you do a pull requests, and add tests for new features.
