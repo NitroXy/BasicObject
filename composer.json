@@ -20,5 +20,11 @@
             "email": "github@petterblomberg.se"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "BasicObject.php",
+            "ValidatingBasicObject.php"
+        ]
+    }
 }
