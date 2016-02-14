@@ -108,7 +108,7 @@ class CacheTest extends DatabaseTestCase {
 			$prop->setValue(array());
 		}
 
-		BasicObject::enable_structure_cache(MC::get_instance(), "bo_unit_test_");
+		BasicObject::enable_structure_cache(BOCache::get_instance(), "bo_unit_test_");
 		foreach($sc_vars as $v => $prop) {
 			$this->assertEquals($vals[$v], $prop->getValue());
 		}
@@ -118,9 +118,9 @@ class CacheTest extends DatabaseTestCase {
 		$sc_vars = $this->getStructureCacheVariables();
 		Model1::from_id(1);
 		Model1::selection(array('model2.int1' => 1));
-		BasicObject::clear_structure_cache(MC::get_instance(), "bo_unit_test_");
+		BasicObject::clear_structure_cache(BOCache::get_instance(), "bo_unit_test_");
 
-		BasicObject::enable_structure_cache(MC::get_instance(), "bo_unit_test_");
+		BasicObject::enable_structure_cache(BOCache::get_instance(), "bo_unit_test_");
 		foreach($sc_vars as $v => $prop) {
 			$this->assertEmpty($prop->getValue());
 		}
@@ -131,9 +131,9 @@ class CacheTest extends DatabaseTestCase {
 		Model1::from_id(1);
 		Model1::selection(array('model2.int1' => 1));
 
-		BasicObject::clear_structure_cache(MC::get_instance(), "bo_unit_test2_");
+		BasicObject::clear_structure_cache(BOCache::get_instance(), "bo_unit_test2_");
 
-		BasicObject::enable_structure_cache(MC::get_instance(), "bo_unit_test_");
+		BasicObject::enable_structure_cache(BOCache::get_instance(), "bo_unit_test_");
 		foreach($sc_vars as $v => $prop) {
 			$this->assertNotEmpty($prop->getValue());
 		}

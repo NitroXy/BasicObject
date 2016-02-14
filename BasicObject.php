@@ -1,5 +1,7 @@
 <?php
 
+require_once "IBasicObjectMemCache.php";
+
 /**
  * {@example BasicObjectExample.php}
  */
@@ -154,7 +156,7 @@ abstract class BasicObject {
 	 * Enables structure cache using the provided Memcache object
 	 * The memcache instance must be connected
 	 */
-	public static function enable_structure_cache($memcache, $prefix = "basicobject_") {
+	public static function enable_structure_cache(IBasicObjectMemCache $memcache, $prefix = "basicobject_") {
 		BasicObject::$memcache = $memcache;
 		BasicObject::$memcache_prefix = $prefix;
 
@@ -184,7 +186,7 @@ abstract class BasicObject {
 
 	private static function store_column_ids() {
 		if(BasicObject::$memcache) {
-			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "column_ids", serialize(BasicObject::$column_ids), 0, 0); /* no expire */
+			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "column_ids", serialize(BasicObject::$column_ids));
 		}
 	}
 
@@ -194,19 +196,19 @@ abstract class BasicObject {
 
 	private static function store_connection_table() {
 		if(BasicObject::$memcache) {
-			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "connection_table", serialize(BasicObject::$connection_table), 0, 0); /* No expire */
+			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "connection_table", serialize(BasicObject::$connection_table));
 		}
 	}
 
 	private static function store_tables() {
 		if(BasicObject::$memcache) {
-			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "tables", serialize(BasicObject::$tables), 0, 0); /* No expire */
+			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "tables", serialize(BasicObject::$tables));
 		}
 	}
 
 	private static function store_columns() {
 		if(BasicObject::$memcache) {
-			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "columns", serialize(BasicObject::$columns), 0, 0); /* No expire */
+			BasicObject::$memcache->set(BasicObject::$memcache_prefix . "columns", serialize(BasicObject::$columns));
 		}
 	}
 

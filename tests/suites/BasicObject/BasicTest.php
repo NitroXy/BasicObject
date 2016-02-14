@@ -93,6 +93,7 @@ class BasicTest extends DatabaseTestCase {
 
 	/**
 	 * @depends testSelection
+	 * @medium
 	 */
 	public function testSum() {
 		$sum = 0;
@@ -106,6 +107,7 @@ class BasicTest extends DatabaseTestCase {
 
 	/**
 	 * @depends testSelection
+	 * @medium
 	 */
 	public function testCount() {
 		$key = "counttest";
