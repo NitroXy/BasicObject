@@ -816,7 +816,7 @@ abstract class BasicObject {
 	 * When using manual query the caller must ensure all fields are present in
 	 * the query (e.g. using `SELECT *`).
 	 */
-	public static function selection_execute($data, $debug=false){
+	protected static function selection_execute($data, $debug=false){
 		global $db;
 
 		$cache_string = null;
