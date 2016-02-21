@@ -801,8 +801,23 @@ abstract class BasicObject {
 	 * @returns Array An array of Objects.
 	 */
 	public static function selection($params = array(), $debug=false){
-		global $db;
 		$data = self::build_query($params, '*');
+		return static::selection_execute($data, $debug);
+	}
+
+	/**
+	 * Run a query and build result array. Normally you would use `selection` or
+	 * `from_field` but for advanced usage the query can be prepared manually.
+	 *
+	 * $data must be an array either like:
+	 * - [$query]
+	 * - [$query, $types, $params...]
+	 *
+	 * When using manual query the caller must ensure all fields are present in
+	 * the query (e.g. using `SELECT *`).
+	 */
+	protected static function selection_execute($data, $debug=false){
+		global $db;
 
 		$cache_string = null;
 		if(BasicObject::$_enable_cache) {
