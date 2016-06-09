@@ -2,8 +2,6 @@
 
 error_reporting(E_STRICT|E_ALL);
 
-require_once 'PEAR.php';
-
 include realpath(dirname(__FILE__)) . "/database.php";
 include realpath(dirname(__FILE__)) . "/helpers.php";
 
