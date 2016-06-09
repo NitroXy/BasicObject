@@ -29,6 +29,8 @@
         ]
     },
     "require-dev": {
+        "phpdocumentor/reflection-docblock": "^2.0",
+        "symfony/yaml": "^2.0",
         "phpunit/phpunit": "^4.8"
     }
 }
