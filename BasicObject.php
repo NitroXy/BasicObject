@@ -1124,13 +1124,15 @@ abstract class BasicObject {
 	 *            permit: Array with keys to permit to update.
 	 *            create: If true new objects can be created if ID is missing or null, otherwise null
 	 *                    will be returned when the object should've been created.
+	 *            extra_fields Array with extra fields to set on the object (using __set)
 	 */
-	public static function update_attributes($array, $options=array()) {
+	public static function update_attributes(array $array, $options=[]) {
 		$defaults = array(
 			'empty_to_null' => true,
 			'commit' => false,
 			'permit' => false,
 			'create' => true,
+			'extra_fields' => [],
 		);
 		$options = array_merge($defaults, $options);
 		if ( $options['empty_to_null'] == true || is_array($options['empty_to_null']) ){
@@ -1174,6 +1176,12 @@ abstract class BasicObject {
 			$obj->_exists = true; //Mark as existing
 		} else if ( $options['create'] === false ){
 			return null;
+		}
+
+		foreach ( $options['extra_fields'] as $key ){
+			if ( array_key_exists($key, $array) ){
+				$obj->$key = $array[$key];
+			}
 		}
 
 		if(!isset($options["commit"]) || $options["commit"] == true) {
