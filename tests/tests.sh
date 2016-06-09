@@ -1,14 +1,11 @@
-echo "Running tests without cache\n"
-phpunit --bootstrap "no_cache.php" --verbose --exclude-group cache $@
+#!/bin/sh
 
-ret=$?
+set +e
+cd `dirname $0`
 
-if [ $ret -ne 0 ]; then
-	exit $ret
-fi
+echo -e "Running tests without cache\n"
+./phpunit --bootstrap "no_cache.php" --exclude-group cache $@
 
-
-echo "\n----------------------\n"
-echo "Running tests with cache\n"
-phpunit --bootstrap "with_cache.php" --verbose $@
-exit $?
+echo -e "\n----------------------\n"
+echo -e "Running tests with cache\n"
+./phpunit --bootstrap "with_cache.php" $@

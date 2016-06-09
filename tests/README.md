@@ -4,7 +4,7 @@ PHPUnit
 The tests requires phpunit: https://github.com/sebastianbergmann/phpunit/
 Install it by running
 
-	sudo ./install_phpunit.sh
+    composer install
 
 If you get errors saying that pcntl_signal and/or pcntl_alarm is disabled for security reasons,
 reenable them by editing /etc/php5/cli/php.ini and removing them from disabled_functions.

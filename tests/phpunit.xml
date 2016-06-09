@@ -1,6 +1,7 @@
 <phpunit colors="true"
 	stopOnError="true"
-	strict="true">
+	strict="true"
+	verbose="true">
 
 	<testsuites>
 		<testsuite name="Basics">
