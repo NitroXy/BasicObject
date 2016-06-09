@@ -279,6 +279,13 @@ abstract class BasicObject {
 	}
 
 	/**
+	 * Returns true if this object exists (in database).
+	 */
+	public function exists(){
+		return $this->_exists;
+	}
+
+	/**
 	 * Called after a clone is completed.
 	 * Don't do anything, but with this one undefined __call get called instead
 	 */
