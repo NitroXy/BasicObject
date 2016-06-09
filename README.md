@@ -1,6 +1,6 @@
 # BasicObject
 
-Yet anoyther object relational mapper
+Yet anoyther object relational mapper.
 
 ## Installation
 
