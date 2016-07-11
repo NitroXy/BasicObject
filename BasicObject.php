@@ -100,6 +100,17 @@ abstract class BasicObject {
 //	abstract protected static function table_name();
 
 	/**
+	 * Array with names of extra fields supported by this model.
+	 * When using `update_attributes` all fields from this array will be
+	 * set on the instance it present in data. Useful when combied with
+	 * `__set`, e.g. setting `bar` affects `foo` but `bar` isn't present
+	 * in the database table.
+	 */
+	protected static function extra_fields(){
+		return [];
+	}
+
+	/**
 	 * Returns the table name associated with this class.
 	 * @return The name of the table this class is associated with.
 	 */
@@ -1132,13 +1143,14 @@ abstract class BasicObject {
 	 *            create: If true new objects can be created if ID is missing or null, otherwise null
 	 *                    will be returned when the object should've been created.
 	 */
-	public static function update_attributes($array, $options=array()) {
+	public static function update_attributes(array $array, $options=[]) {
 		$defaults = array(
 			'empty_to_null' => true,
 			'commit' => false,
 			'permit' => false,
 			'create' => true,
 		);
+		$extra_fields = static::extra_fields();
 		$options = array_merge($defaults, $options);
 		if ( $options['empty_to_null'] == true || is_array($options['empty_to_null']) ){
 			$keys = $options['empty_to_null'];
@@ -1155,7 +1167,9 @@ abstract class BasicObject {
 		/* remove unpermitted keys */
 		if ( is_array($options['permit']) ){
 			$permit = array_merge($options['permit'], array('id', static::id_name()));
-			$array = array_intersect_key($array, array_combine($permit, $permit));
+			$permit = array_combine($permit, $permit);
+			$array = array_intersect_key($array, $permit);
+			$extra_fields = array_intersect($extra_fields, $permit);
 		}
 
 		$obj = new static($array);
@@ -1181,6 +1195,13 @@ abstract class BasicObject {
 			$obj->_exists = true; //Mark as existing
 		} else if ( $options['create'] === false ){
 			return null;
+		}
+
+		/* call __set for all extra fields */
+		foreach ( $extra_fields as $key ){
+			if ( array_key_exists($key, $array) ){
+				$obj->$key = $array[$key];
+			}
 		}
 
 		if(!isset($options["commit"]) || $options["commit"] == true) {
