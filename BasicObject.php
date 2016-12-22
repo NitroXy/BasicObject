@@ -628,7 +628,6 @@ abstract class BasicObject {
 			}
 			$stmt->close();
 		}
-		unset($this);
 	}
 
 	/**
