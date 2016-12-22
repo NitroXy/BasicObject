@@ -1,5 +1,6 @@
 # BasicObject
 
+[![Packagist](https://img.shields.io/packagist/v/nitroxy/basic-object.svg)](https://packagist.org/packages/nitroxy/basic-object)
 [![Build Status](https://travis-ci.org/NitroXy/BasicObject.svg?branch=master)](https://travis-ci.org/NitroXy/BasicObject)
 
 Yet anoyther object relational mapper.
